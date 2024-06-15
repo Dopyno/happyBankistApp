@@ -67,14 +67,14 @@ const displayMovements = function (movements, sort = false) {
   movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
     const htmlRow = `<div class="movements__row">
-                       <div class="movements__type movements__type--${type}">${i + 1} ${type}</div><div class="movements__value">${mov}€</div></div>`;
+                       <div class="movements__type movements__type--${type}">${i + 1} ${type}</div><div class="movements__value">&pound${mov}</div></div>`;
     containerMovements.insertAdjacentHTML('afterbegin', htmlRow);
   });
 };
 
 const calcDisplayBalance = function (acc) {
   acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
-  labelBalance.textContent = `${acc.balance} \u20AC`;
+  labelBalance.textContent = `£${acc.balance}`;
 };
 
 const calcDisplaySummary = function (acc) {
@@ -94,9 +94,9 @@ const calcDisplaySummary = function (acc) {
     })
     .reduce((acc, mov) => acc + mov, 0);
 
-  labelSumIn.textContent = `${incomes}\u20AC`;
-  labelSumOut.textContent = `${Math.abs(outcome)}\u20AC`;
-  labelSumInterest.textContent = `${interest}\u20AC`;
+  labelSumIn.textContent = `£${incomes}`;
+  labelSumOut.textContent = `£${Math.abs(outcome)}`;
+  labelSumInterest.textContent = `£${interest}`;
 };
 
 const createUsernames = function (accs) {
@@ -122,7 +122,7 @@ const updateUI = function (acc) {
 
 //Event handler
 let currentAccount;
-
+let currentDate = new Date()
 btnLogin.addEventListener('click', function (e) {
   //Prevent form from submitting
   e.preventDefault();
@@ -144,6 +144,7 @@ btnLogin.addEventListener('click', function (e) {
     //? update UI
     updateUI(currentAccount);
     document.body.style.backgroundColor = "lightblue";
+    document.querySelector('.date').innerHTML = currentDate;
   }
 });
 
