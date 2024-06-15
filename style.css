@@ -57,6 +57,15 @@ nav {
   transition: all 0.3s;
 }
 
+.happy {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+h1 {
+font-size: 25px;
+}
+
 .login__input:focus {
   outline: none;
   border: 1px solid #ccc;
@@ -91,7 +100,7 @@ nav {
   display: grid;
   grid-template-columns: 4fr 3fr;
   grid-template-rows: auto repeat(3, 15rem) auto;
-  gap: 2rem; 
+  gap: 2rem;
   opacity: 0;
   transition: all 1s;
 }

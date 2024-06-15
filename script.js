@@ -63,18 +63,11 @@ const inputClosePin = document.querySelector('.form__input--pin');
 
 const displayMovements = function (movements, sort = false) {
   containerMovements.innerHTML = '';
-
   const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
-
   movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
     const htmlRow = `<div class="movements__row">
-                       <div class="movements__type movements__type--${type}">${
-      i + 1
-    } ${type}</div>
-                       <div class="movements__value">${mov}€</div>
-                      </div>`;
-
+                       <div class="movements__type movements__type--${type}">${i + 1} ${type}</div><div class="movements__value">${mov}€</div></div>`;
     containerMovements.insertAdjacentHTML('afterbegin', htmlRow);
   });
 };
@@ -134,15 +127,14 @@ btnLogin.addEventListener('click', function (e) {
   //Prevent form from submitting
   e.preventDefault();
   currentAccount = accounts.find(
-    acc => acc.username === inputLoginUsername.value
+    acc => acc.username === inputLoginUsername.value.toLowerCase()
   );
   console.log(currentAccount);
 
   if (currentAccount?.pin === Number(inputLoginPin.value)) {
     //! Display UI and message
-    labelWelcome.textContent = `Welcome back ${
-      currentAccount.owner.split(' ')[0]
-    }`;
+    labelWelcome.textContent = `Welcome back, ${
+      currentAccount.owner.split(' ')[0]} ${currentAccount.owner.split(' ')[1]}!`;
     containerApp.style.opacity = 100;
 
     //! Clear input fields
@@ -151,8 +143,7 @@ btnLogin.addEventListener('click', function (e) {
 
     //? update UI
     updateUI(currentAccount);
-
-    console.log('Login');
+    document.body.style.backgroundColor = "lightblue";
   }
 });
 
