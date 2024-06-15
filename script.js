@@ -122,7 +122,7 @@ const updateUI = function (acc) {
 
 //Event handler
 let currentAccount;
-let currentDate = new Date()
+// let currentDate = new Date()
 btnLogin.addEventListener('click', function (e) {
   //Prevent form from submitting
   e.preventDefault();
@@ -144,7 +144,7 @@ btnLogin.addEventListener('click', function (e) {
     //? update UI
     updateUI(currentAccount);
     document.body.style.backgroundColor = "lightblue";
-    document.querySelector('.date').innerHTML = currentDate;
+    document.querySelector('.date').innerHTML = new Date()
   }
 });
 

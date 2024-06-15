@@ -56,14 +56,18 @@ nav {
   border: 1px solid #fff;
   transition: all 0.3s;
 }
+.login__input:hover {
+  color: #e52a5a;
+  background-color: #EAEDED;
 
+}
 .happy {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 h1 {
-font-size: 25px;
+  font-size: 25px;
 }
 
 .login__input:focus {
@@ -91,6 +95,7 @@ font-size: 25px;
   outline: none;
   color: #777;
 }
+
 
 /* MAIN */
 .app {
