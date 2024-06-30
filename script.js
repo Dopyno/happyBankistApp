@@ -1,7 +1,7 @@
 // Data
 const account1 = {
   owner: 'Marius Iordan',
-  movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
+  movements: [200.77, 450.89, -400, 3000.45, -650.98, -130, 78.56, 1300.34],
   interestRate: 1.2, // %
   pin: 1111,
 };
@@ -67,14 +67,18 @@ const displayMovements = function (movements, sort = false) {
   movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
     const htmlRow = `<div class="movements__row">
-                       <div class="movements__type movements__type--${type}">${i + 1} ${type}</div><div class="movements__value">&pound${mov}</div></div>`;
+                       <div class="movements__type movements__type--${type}">${
+      i + 1
+    } ${type}</div><div class="movements__value">&pound${mov.toFixed(
+      2
+    )}</div></div>`;
     containerMovements.insertAdjacentHTML('afterbegin', htmlRow);
   });
 };
 
 const calcDisplayBalance = function (acc) {
   acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
-  labelBalance.textContent = `£${acc.balance}`;
+  labelBalance.textContent = `£${acc.balance.toFixed(2)}`;
 };
 
 const calcDisplaySummary = function (acc) {
@@ -94,9 +98,9 @@ const calcDisplaySummary = function (acc) {
     })
     .reduce((acc, mov) => acc + mov, 0);
 
-  labelSumIn.textContent = `£${incomes}`;
-  labelSumOut.textContent = `£${Math.abs(outcome)}`;
-  labelSumInterest.textContent = `£${interest}`;
+  labelSumIn.textContent = `£${incomes.toFixed(2)}`;
+  labelSumOut.textContent = `£${outcome.toFixed(2)}`;
+  labelSumInterest.textContent = `£${interest.toFixed(2)}`;
 };
 
 const createUsernames = function (accs) {
@@ -134,7 +138,8 @@ btnLogin.addEventListener('click', function (e) {
   if (currentAccount?.pin === Number(inputLoginPin.value)) {
     //! Display UI and message
     labelWelcome.textContent = `Welcome back, ${
-      currentAccount.owner.split(' ')[0]} ${currentAccount.owner.split(' ')[1]}!`;
+      currentAccount.owner.split(' ')[0]
+    } ${currentAccount.owner.split(' ')[1]}!`;
     containerApp.style.opacity = 100;
 
     //! Clear input fields
@@ -143,8 +148,8 @@ btnLogin.addEventListener('click', function (e) {
 
     //? update UI
     updateUI(currentAccount);
-    document.body.style.backgroundColor = "lightblue";
-    document.querySelector('.date').innerHTML = new Date()
+    document.body.style.backgroundColor = 'lightblue';
+    document.querySelector('.date').innerHTML = new Date();
   }
 });
 
@@ -209,6 +214,3 @@ btnSort.addEventListener('click', function (e) {
   displayMovements(currentAccount.movements, !sorted);
   sorted = !sorted;
 });
-
-
-
