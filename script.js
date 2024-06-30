@@ -150,8 +150,8 @@ btnLogin.addEventListener('click', function (e) {
     updateUI(currentAccount);
     document.body.style.backgroundColor = 'lightblue';
     const date = new Date();
-    const day = `${date.getDate()}`.padStart(2, '0');
-    const month = `${date.getDate() + 1}`.padStart(2, '0');
+    const day = `${date.getDate()}`.padStart(2, 0);
+    const month = `${date.getMonth() + 1}`.padStart(2, '0');
     const year = date.getFullYear();
     const hour = date.getHours()
     const minutes = date.getMinutes()
