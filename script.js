@@ -124,6 +124,20 @@ const inputClosePin = document.querySelector('.form__input--pin');
 //! /////////////////////////////////////////////////////////////////////////////////////////
 //* Functions
 
+// Experimenting API
+
+const now = new Date();
+const options = {
+  hour: 'numeric',
+  minute: 'numeric',
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+  weekday: 'long',
+};
+
+labelDate.textContent = new Intl.DateTimeFormat('en-GB', options).format(now);
+
 const formatMovements = function (date) {
   const calcDayPassed = (date1, date2) =>
     Math.round(Math.abs(date2 - date1) / (1000 * 60 * 60 * 24));
@@ -140,9 +154,9 @@ const formatMovements = function (date) {
   return `${day}/${month}/${year}`;
 };
 
-const displayMovements = function (movements, sort = false) {
+const displayMovements = function (acc, sort = false) {
   containerMovements.innerHTML = '';
-  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+  const movs = sort ? acc.movements.slice().sort((a, b) => a - b) : acc.movements;
   movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
 
@@ -150,7 +164,9 @@ const displayMovements = function (movements, sort = false) {
     const displayDate = formatMovements(date);
 
     const htmlRow = `<div class="movements__row">
-                       <div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
+                       <div class="movements__type movements__type--${type}">${
+      i + 1
+    } ${type}</div>
     <div class="movements__date">${displayDate}</div>
     <div class="movements__value">&pound${mov.toFixed(2)}</div>
     </div>`;
@@ -199,7 +215,7 @@ createUsernames(accounts);
 
 const updateUI = function (acc) {
   //! Display the movements
-  displayMovements(acc.movements);
+  displayMovements(acc);
   //! Display balance
   calcDisplayBalance(acc);
   //! Display summary
