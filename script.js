@@ -2,6 +2,18 @@
 const account1 = {
   owner: 'Marius Iordan',
   movements: [200.77, 450.89, -400, 3000.45, -650.98, -130, 78.56, 1300.34],
+  movementsDate: [
+    '2019-12-25T06:04:23.907Z',
+    '2019-07-25T06:04:23.907Z',
+    '2019-11-25T06:04:23.907Z',
+    '2019-06-25T06:04:23.907Z',
+    '2024-07-12T06:04:23.907Z',
+    '2024-07-13T06:04:23.907Z',
+    '2024-07-14T06:04:23.907Z',
+    '2024-07-15T06:04:23.907Z',
+    '2024-07-15T06:04:23.907Z',
+    '2024-07-15T06:04:23.907Z',
+  ],
   interestRate: 1.2, // %
   pin: 1111,
 };
@@ -9,6 +21,18 @@ const account1 = {
 const account2 = {
   owner: 'Jessica Davis',
   movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
+  movementsDate: [
+    '2019-12-25T06:04:23.907Z',
+    '2019-07-25T06:04:23.907Z',
+    '2019-11-25T06:04:23.907Z',
+    '2019-06-25T06:04:23.907Z',
+    '2024-07-12T06:04:23.907Z',
+    '2024-07-13T06:04:23.907Z',
+    '2024-07-14T06:04:23.907Z',
+    '2024-07-15T06:04:23.907Z',
+    '2024-07-15T06:04:23.907Z',
+    '2024-07-15T06:04:23.907Z',
+  ],
   interestRate: 1.5,
   pin: 2222,
 };
@@ -16,6 +40,18 @@ const account2 = {
 const account3 = {
   owner: 'Marius Panait',
   movements: [200, -200, 340, -300, -20, 50, 400, -460],
+  movementsDate: [
+    '2019-12-25T06:04:23.907Z',
+    '2019-07-25T06:04:23.907Z',
+    '2019-11-25T06:04:23.907Z',
+    '2019-06-25T06:04:23.907Z',
+    '2024-07-12T06:04:23.907Z',
+    '2024-07-13T06:04:23.907Z',
+    '2024-07-14T06:04:23.907Z',
+    '2024-07-15T06:04:23.907Z',
+    '2024-07-15T06:04:23.907Z',
+    '2024-07-15T06:04:23.907Z',
+  ],
   interestRate: 0.7,
   pin: 3333,
 };
@@ -23,12 +59,36 @@ const account3 = {
 const account4 = {
   owner: 'Sarah Smith',
   movements: [430, 1000, 700, 50, 90],
+  movementsDate: [
+    '2019-12-25T06:04:23.907Z',
+    '2019-07-25T06:04:23.907Z',
+    '2019-11-25T06:04:23.907Z',
+    '2019-06-25T06:04:23.907Z',
+    '2024-07-12T06:04:23.907Z',
+    '2024-07-13T06:04:23.907Z',
+    '2024-07-14T06:04:23.907Z',
+    '2024-07-15T06:04:23.907Z',
+    '2024-07-15T06:04:23.907Z',
+    '2024-07-15T06:04:23.907Z',
+  ],
   interestRate: 1,
   pin: 4444,
 };
 const account5 = {
   owner: 'Albert Iordan',
   movements: [430, 1000, 700, 50, 90, 5000, 400, 700, 1000, 100000],
+  movementsDate: [
+    '2019-12-25T06:04:23.907Z',
+    '2019-07-25T06:04:23.907Z',
+    '2019-11-25T06:04:23.907Z',
+    '2019-06-25T06:04:23.907Z',
+    '2024-07-12T06:04:23.907Z',
+    '2024-07-13T06:04:23.907Z',
+    '2024-07-14T06:04:23.907Z',
+    '2024-07-15T06:04:23.907Z',
+    '2024-07-15T06:04:23.907Z',
+    '2024-07-15T06:04:23.907Z',
+  ],
   interestRate: 0.5,
   pin: 5555,
 };
@@ -61,17 +121,39 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
+//! /////////////////////////////////////////////////////////////////////////////////////////
+//* Functions
+
+const formatMovements = function (date) {
+  const calcDayPassed = (date1, date2) =>
+    Math.round(Math.abs(date2 - date1) / (1000 * 60 * 60 * 24));
+  const dayPassed = calcDayPassed(new Date(), date);
+  console.log(dayPassed);
+
+  if (dayPassed === 0) return 'Today';
+  if (dayPassed === 1) return 'Yesterday';
+  if (dayPassed <= 7) return `${dayPassed} days ago`;
+
+  const day = `${date.getDate()}`.padStart(2, 0);
+  const month = `${date.getMonth() + 1}`.padStart(2, 0);
+  const year = date.getFullYear();
+  return `${day}/${month}/${year}`;
+};
+
 const displayMovements = function (movements, sort = false) {
   containerMovements.innerHTML = '';
   const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
   movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
+
+    const date = new Date(acc.movementsDate[i]);
+    const displayDate = formatMovements(date);
+
     const htmlRow = `<div class="movements__row">
-                       <div class="movements__type movements__type--${type}">${
-      i + 1
-    } ${type}</div><div class="movements__value">&pound${mov.toFixed(
-      2
-    )}</div></div>`;
+                       <div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
+    <div class="movements__date">${displayDate}</div>
+    <div class="movements__value">&pound${mov.toFixed(2)}</div>
+    </div>`;
     containerMovements.insertAdjacentHTML('afterbegin', htmlRow);
   });
 };
@@ -153,9 +235,11 @@ btnLogin.addEventListener('click', function (e) {
     const day = `${date.getDate()}`.padStart(2, 0);
     const month = `${date.getMonth() + 1}`.padStart(2, '0');
     const year = date.getFullYear();
-    const hour = date.getHours()
-    const minutes = date.getMinutes()
-    document.querySelector('.date').innerHTML = `${day}/${month}/${year}, ${hour}:${minutes}`;
+    const hour = date.getHours();
+    const minutes = date.getMinutes();
+    document.querySelector(
+      '.date'
+    ).innerHTML = `${day}/${month}/${year}, ${hour}:${minutes}`;
   }
 });
 
