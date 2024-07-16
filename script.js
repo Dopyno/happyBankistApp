@@ -11,8 +11,6 @@ const account1 = {
     '2024-07-13T06:04:23.907Z',
     '2024-07-14T06:04:23.907Z',
     '2024-07-15T06:04:23.907Z',
-    '2024-07-15T06:04:23.907Z',
-    '2024-07-15T06:04:23.907Z',
   ],
   interestRate: 1.2, // %
   pin: 1111,
@@ -30,8 +28,6 @@ const account2 = {
     '2024-07-13T06:04:23.907Z',
     '2024-07-14T06:04:23.907Z',
     '2024-07-15T06:04:23.907Z',
-    '2024-07-15T06:04:23.907Z',
-    '2024-07-15T06:04:23.907Z',
   ],
   interestRate: 1.5,
   pin: 2222,
@@ -41,8 +37,6 @@ const account3 = {
   owner: 'Marius Panait',
   movements: [200, -200, 340, -300, -20, 50, 400, -460],
   movementsDate: [
-    '2019-12-25T06:04:23.907Z',
-    '2019-07-25T06:04:23.907Z',
     '2019-11-25T06:04:23.907Z',
     '2019-06-25T06:04:23.907Z',
     '2024-07-12T06:04:23.907Z',
@@ -60,11 +54,6 @@ const account4 = {
   owner: 'Sarah Smith',
   movements: [430, 1000, 700, 50, 90],
   movementsDate: [
-    '2019-12-25T06:04:23.907Z',
-    '2019-07-25T06:04:23.907Z',
-    '2019-11-25T06:04:23.907Z',
-    '2019-06-25T06:04:23.907Z',
-    '2024-07-12T06:04:23.907Z',
     '2024-07-13T06:04:23.907Z',
     '2024-07-14T06:04:23.907Z',
     '2024-07-15T06:04:23.907Z',
@@ -138,7 +127,7 @@ const options = {
 
 labelDate.textContent = new Intl.DateTimeFormat('en-GB', options).format(now);
 
-const formatMovements = function (date) {
+const formatMovements = function (date, locale) {
   const calcDayPassed = (date1, date2) =>
     Math.round(Math.abs(date2 - date1) / (1000 * 60 * 60 * 24));
   const dayPassed = calcDayPassed(new Date(), date);
@@ -148,20 +137,23 @@ const formatMovements = function (date) {
   if (dayPassed === 1) return 'Yesterday';
   if (dayPassed <= 7) return `${dayPassed} days ago`;
 
-  const day = `${date.getDate()}`.padStart(2, 0);
-  const month = `${date.getMonth() + 1}`.padStart(2, 0);
-  const year = date.getFullYear();
-  return `${day}/${month}/${year}`;
+  // const day = `${date.getDate()}`.padStart(2, 0);
+  // const month = `${date.getMonth() + 1}`.padStart(2, 0);
+  // const year = date.getFullYear();
+  // return `${day}/${month}/${year}`;
+  return new Intl.DateTimeFormat(locale).format(date);
 };
 
 const displayMovements = function (acc, sort = false) {
   containerMovements.innerHTML = '';
-  const movs = sort ? acc.movements.slice().sort((a, b) => a - b) : acc.movements;
+  const movs = sort
+    ? acc.movements.slice().sort((a, b) => a - b)
+    : acc.movements;
   movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
 
     const date = new Date(acc.movementsDate[i]);
-    const displayDate = formatMovements(date);
+    const displayDate = formatMovements(date, currentAccount.locale);
 
     const htmlRow = `<div class="movements__row">
                        <div class="movements__type movements__type--${type}">${
@@ -224,6 +216,7 @@ const updateUI = function (acc) {
 
 //Event handler
 let currentAccount;
+
 // let currentDate = new Date()
 btnLogin.addEventListener('click', function (e) {
   //Prevent form from submitting
@@ -277,8 +270,8 @@ btnTransfer.addEventListener('click', function (e) {
     receiverAcc.movements.push(amount);
 
     //? Add transfer date
-    currentAccount.movementsDate.push(new Date().toISOString())
-    receiverAcc.movementsDate.push(new Date().toISOString())
+    currentAccount.movementsDate.push(new Date().toISOString());
+    receiverAcc.movementsDate.push(new Date().toISOString());
 
     //? update UI
     updateUI(currentAccount);
@@ -295,7 +288,7 @@ btnLoan.addEventListener('click', function (e) {
 
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
     currentAccount.movements.push(amount);
-    currentAccount.movementsDate.push(new Date().toISOString())
+    currentAccount.movementsDate.push(new Date().toISOString());
     updateUI(currentAccount);
   }
   inputLoanAmount.value = '';
