@@ -14,6 +14,8 @@ const account1 = {
   ],
   interestRate: 1.2, // %
   pin: 1111,
+  currencies: 'Pound',
+  locale: 'en-GB',
 };
 
 const account2 = {
@@ -31,6 +33,8 @@ const account2 = {
   ],
   interestRate: 1.5,
   pin: 2222,
+  currencies: 'Pound',
+  locale: 'en-GB',
 };
 
 const account3 = {
@@ -48,6 +52,8 @@ const account3 = {
   ],
   interestRate: 0.7,
   pin: 3333,
+  currencies: 'Pound',
+  locale: 'en-GB',
 };
 
 const account4 = {
@@ -62,6 +68,8 @@ const account4 = {
   ],
   interestRate: 1,
   pin: 4444,
+  currencies: 'Pound',
+  locale: 'en-GB',
 };
 const account5 = {
   owner: 'Albert Iordan',
@@ -80,6 +88,8 @@ const account5 = {
   ],
   interestRate: 0.5,
   pin: 5555,
+  currencies: 'Pound',
+  locale: 'en-GB',
 };
 
 const accounts = [account1, account2, account3, account4, account5];
