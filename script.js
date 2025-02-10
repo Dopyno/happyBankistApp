@@ -136,7 +136,8 @@ const options = {
 };
 
 labelDate.textContent = new Intl.DateTimeFormat('en-GB', options).format(now);
-
+//Event handler
+let currentAccount;
 const formatMovements = function (date, locale) {
   const calcDayPassed = (date1, date2) =>
     Math.round(Math.abs(date2 - date1) / (1000 * 60 * 60 * 24));
@@ -185,10 +186,12 @@ const calcDisplaySummary = function (acc) {
   const incomes = acc.movements
     .filter(mov => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
+  labelSumIn.textContent = `£${incomes.toFixed(2)}`;
 
   const outcome = acc.movements
     .filter(mov => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
+  labelSumOut.textContent = `£${outcome.toFixed(2)}`;
 
   const interest = acc.movements
     .filter(mov => mov > 0)
@@ -198,8 +201,6 @@ const calcDisplaySummary = function (acc) {
     })
     .reduce((acc, mov) => acc + mov, 0);
 
-  labelSumIn.textContent = `£${incomes.toFixed(2)}`;
-  labelSumOut.textContent = `£${outcome.toFixed(2)}`;
   labelSumInterest.textContent = `£${interest.toFixed(2)}`;
 };
 
@@ -223,9 +224,6 @@ const updateUI = function (acc) {
   //! Display summary
   calcDisplaySummary(acc);
 };
-
-//Event handler
-let currentAccount;
 
 // let currentDate = new Date()
 btnLogin.addEventListener('click', function (e) {
@@ -294,7 +292,7 @@ btnTransfer.addEventListener('click', function (e) {
 
 btnLoan.addEventListener('click', function (e) {
   e.preventDefault();
-  const amount = +inputLoanAmount.value;
+  const amount = Math.floor(inputLoanAmount.value);
 
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
     currentAccount.movements.push(amount);
