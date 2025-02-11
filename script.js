@@ -244,12 +244,16 @@ const calcDisplaySummary = function (acc) {
   const incomes = acc.movements
     .filter(mov => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumIn.textContent = `£${incomes.toFixed(2)}`;
+  labelSumIn.textContent = formatCur(incomes, acc.locale, acc.currency);
 
   const outcome = acc.movements
     .filter(mov => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumOut.textContent = `£${outcome.toFixed(2)}`;
+  labelSumOut.textContent = formatCur(
+    Math.abs(outcome),
+    acc.locale,
+    acc.currency
+  );
 
   const interest = acc.movements
     .filter(mov => mov > 0)
@@ -259,7 +263,7 @@ const calcDisplaySummary = function (acc) {
     })
     .reduce((acc, mov) => acc + mov, 0);
 
-  labelSumInterest.textContent = `£${interest.toFixed(2)}`;
+  labelSumInterest.textContent = formatCur(interest, acc.locale, acc.currency);
 };
 
 const createUsernames = function (accs) {
