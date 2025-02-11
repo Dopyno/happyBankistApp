@@ -14,8 +14,8 @@ const account1 = {
   ],
   interestRate: 1.2, // %
   pin: 1111,
-  currencies: 'Pound',
-  locale: 'en-GB',
+  currency: 'Pound',
+  locale: 'en-UK',
 };
 
 const account2 = {
@@ -33,8 +33,8 @@ const account2 = {
   ],
   interestRate: 1.5,
   pin: 2222,
-  currencies: 'Pound',
-  locale: 'en-GB',
+  currency: 'EUR',
+  locale: 'pt-PT',
 };
 
 const account3 = {
@@ -52,8 +52,8 @@ const account3 = {
   ],
   interestRate: 0.7,
   pin: 3333,
-  currencies: 'Pound',
-  locale: 'en-GB',
+  currency: 'Pound',
+  locale: 'en-UK',
 };
 
 const account4 = {
@@ -68,8 +68,8 @@ const account4 = {
   ],
   interestRate: 1,
   pin: 4444,
-  currencies: 'Pound',
-  locale: 'en-GB',
+  currency: 'Pound',
+  locale: 'en-UK',
 };
 const account5 = {
   owner: 'Albert Iordan',
@@ -88,8 +88,8 @@ const account5 = {
   ],
   interestRate: 0.5,
   pin: 5555,
-  currencies: 'Pound',
-  locale: 'en-GB',
+  currency: 'USD',
+  locale: 'en-US',
 };
 
 const accounts = [account1, account2, account3, account4, account5];
@@ -134,8 +134,10 @@ const options = {
   year: 'numeric',
   weekday: 'long',
 };
+const locale = navigator.language;
+console.log(locale);
 
-labelDate.textContent = new Intl.DateTimeFormat('en-GB', options).format(now);
+labelDate.textContent = new Intl.DateTimeFormat(locale, options).format(now);
 //Event handler
 let currentAccount;
 const formatMovements = function (date, locale) {
@@ -155,6 +157,13 @@ const formatMovements = function (date, locale) {
   return new Intl.DateTimeFormat(locale).format(date);
 };
 
+ const formatCur = function(value, locale, currency){
+  return new Intl.NumberFormat(locale, {
+    style: 'currency',
+    currency: currency,
+  }).format(value);
+ }
+
 const displayMovements = function (acc, sort = false) {
   containerMovements.innerHTML = '';
   const movs = sort
@@ -166,12 +175,14 @@ const displayMovements = function (acc, sort = false) {
     const date = new Date(acc.movementsDate[i]);
     const displayDate = formatMovements(date, currentAccount.locale);
 
+    const formatMovement = formatCur(mov, acc.locale, acc.currency)
+
     const htmlRow = `<div class="movements__row">
                        <div class="movements__type movements__type--${type}">${
       i + 1
     } ${type}</div>
     <div class="movements__date">${displayDate}</div>
-    <div class="movements__value">&pound${mov.toFixed(2)}</div>
+    <div class="movements__value">${formatMovement}</div>
     </div>`;
     containerMovements.insertAdjacentHTML('afterbegin', htmlRow);
   });
