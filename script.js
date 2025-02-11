@@ -157,12 +157,12 @@ const formatMovements = function (date, locale) {
   return new Intl.DateTimeFormat(locale).format(date);
 };
 
- const formatCur = function(value, locale, currency){
+const formatCur = function (value, locale, currency) {
   return new Intl.NumberFormat(locale, {
     style: 'currency',
     currency: currency,
   }).format(value);
- }
+};
 
 const displayMovements = function (acc, sort = false) {
   containerMovements.innerHTML = '';
@@ -175,7 +175,7 @@ const displayMovements = function (acc, sort = false) {
     const date = new Date(acc.movementsDate[i]);
     const displayDate = formatMovements(date, currentAccount.locale);
 
-    const formatMovement = formatCur(mov, acc.locale, acc.currency)
+    const formatMovement = formatCur(mov, acc.locale, acc.currency);
 
     const htmlRow = `<div class="movements__row">
                        <div class="movements__type movements__type--${type}">${
@@ -190,7 +190,8 @@ const displayMovements = function (acc, sort = false) {
 
 const calcDisplayBalance = function (acc) {
   acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
-  labelBalance.textContent = `£${acc.balance.toFixed(2)}`;
+
+  labelBalance.textContent = formatCur(acc.balance, acc.locale, acc.currency);
 };
 
 const calcDisplaySummary = function (acc) {
