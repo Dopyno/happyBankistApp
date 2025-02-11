@@ -14,7 +14,7 @@ const account1 = {
   ],
   interestRate: 1.2, // %
   pin: 1111,
-  currency: 'Pound',
+  currency: 'GBP',
   locale: 'en-UK',
 };
 
@@ -52,7 +52,7 @@ const account3 = {
   ],
   interestRate: 0.7,
   pin: 3333,
-  currency: 'Pound',
+  currency: 'GBP',
   locale: 'en-UK',
 };
 
@@ -68,7 +68,7 @@ const account4 = {
   ],
   interestRate: 1,
   pin: 4444,
-  currency: 'Pound',
+  currency: 'GBP',
   locale: 'en-UK',
 };
 const account5 = {
@@ -91,8 +91,54 @@ const account5 = {
   currency: 'USD',
   locale: 'en-US',
 };
+const account6 = {
+  owner: 'Silver The Cat',
+  movements: [5000.67, 3400, -150, -790, -3210, -1000, 8500, -30],
+  movementsDate: [
+    '2019-12-25T06:04:23.907Z',
+    '2019-07-25T06:04:23.907Z',
+    '2019-11-25T06:04:23.907Z',
+    '2019-06-25T06:04:23.907Z',
+    '2024-07-12T06:04:23.907Z',
+    '2024-07-13T06:04:23.907Z',
+    '2024-07-14T06:04:23.907Z',
+    '2024-07-15T06:04:23.907Z',
+    '2024-07-15T06:04:23.907Z',
+  ],
+  interestRate: 1.5,
+  pin: 6666,
+  currency: 'SYP',
+  locale: 'ar-SY',
+};
+const account7 = {
+  owner: 'Salahe Lakdar',
+  movements: [5000.67, 3400, -150, -790, -3210, -1000, 8500, -30],
+  movementsDate: [
+    '2019-12-25T06:04:23.907Z',
+    '2019-07-25T06:04:23.907Z',
+    '2019-11-25T06:04:23.907Z',
+    '2019-06-25T06:04:23.907Z',
+    '2024-07-12T06:04:23.907Z',
+    '2024-07-13T06:04:23.907Z',
+    '2024-07-14T06:04:23.907Z',
+    '2024-07-15T06:04:23.907Z',
+    '2024-07-15T06:04:23.907Z',
+  ],
+  interestRate: 1.5,
+  pin: 7777,
+  currency: 'MAD',
+  locale: 'ar-MA',
+};
 
-const accounts = [account1, account2, account3, account4, account5];
+const accounts = [
+  account1,
+  account2,
+  account3,
+  account4,
+  account5,
+  account6,
+  account7,
+];
 
 // Elements
 const labelWelcome = document.querySelector('.welcome');
