@@ -289,7 +289,7 @@ const updateUI = function (acc) {
 
 //set a countdown timer
 const startLogOutTimer = function () {
- const tick =  function () {
+  const tick = function () {
     const min = String(Math.trunc(time / 60)).padStart(2, 0);
     const sec = time % 60;
     //in each call print the remaining time in to UI
@@ -298,19 +298,18 @@ const startLogOutTimer = function () {
     time--;
 
     //When 0 sec, stop the timer and log out the user
-    if(time === 0){
-      clearInterval(timer)
+    if (time === 0) {
+      clearInterval(timer);
       labelWelcome.textContent = `Log in to get started`;
       containerApp.style.opacity = 0;
     }
-  }
+  };
   // set time to 3 min
-  let time = 10;
+  let time = 180;
   tick();
   //call the timer every sec
   const timer = setInterval(tick, 1000);
 };
-
 
 // let currentDate = new Date()
 btnLogin.addEventListener('click', function (e) {
@@ -331,6 +330,8 @@ btnLogin.addEventListener('click', function (e) {
     //! Clear input fields
     inputLoginUsername.value = inputLoginPin.value = '';
     inputLoginPin.blur();
+
+    startLogOutTimer();
 
     //? update UI
     updateUI(currentAccount);
