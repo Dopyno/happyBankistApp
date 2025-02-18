@@ -21,6 +21,10 @@ body {
   background-color: #f3f3f3;
   height: 100vh;
   padding: 2rem;
+  background-image: url('images/jar.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 nav {
@@ -58,8 +62,7 @@ nav {
 }
 .login__input:hover {
   color: #e52a5a;
-  background-color: #EAEDED;
-
+  background-color: #eaeded;
 }
 .happy {
   display: flex;
@@ -95,7 +98,6 @@ h1 {
   outline: none;
   color: #777;
 }
-
 
 /* MAIN */
 .app {
@@ -202,7 +204,7 @@ h1 {
 
 .summary__value--in,
 .summary__value--interest {
-  color: #66c873;
+  color: blue;
 }
 
 .summary__value--out {
@@ -305,5 +307,9 @@ h2 {
 }
 
 .timer {
-  font-weight: 600;
+  font-weight: 700;
+  color:#e52a5a
+}
+p {
+  color: white;
 }

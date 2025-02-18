@@ -185,7 +185,7 @@ console.log(locale);
 
 labelDate.textContent = new Intl.DateTimeFormat(locale, options).format(now);
 //Event handler
-let currentAccount;
+let currentAccount, timer;
 const formatMovements = function (date, locale) {
   const calcDayPassed = (date1, date2) =>
     Math.round(Math.abs(date2 - date1) / (1000 * 60 * 60 * 24));
@@ -294,8 +294,6 @@ const startLogOutTimer = function () {
     const sec = time % 60;
     //in each call print the remaining time in to UI
     labelTimer.textContent = `${min}:${sec}`;
-    //decrese 1 sec
-    time--;
 
     //When 0 sec, stop the timer and log out the user
     if (time === 0) {
@@ -303,12 +301,15 @@ const startLogOutTimer = function () {
       labelWelcome.textContent = `Log in to get started`;
       containerApp.style.opacity = 0;
     }
+    //decrese 1 sec
+    time--;
   };
   // set time to 3 min
-  let time = 180;
+  let time = 120;
   tick();
   //call the timer every sec
   const timer = setInterval(tick, 1000);
+  return timer;
 };
 
 // let currentDate = new Date()
@@ -331,7 +332,9 @@ btnLogin.addEventListener('click', function (e) {
     inputLoginUsername.value = inputLoginPin.value = '';
     inputLoginPin.blur();
 
-    startLogOutTimer();
+    //timer
+    if(timer) clearInterval(timer);
+    timer = startLogOutTimer();
 
     //? update UI
     updateUI(currentAccount);
