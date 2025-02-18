@@ -377,6 +377,10 @@ btnTransfer.addEventListener('click', function (e) {
     inputTransferAmount.blur();
     inputTransferTo.blur();
 
+    //reset timer
+    clearInterval(timer);
+    timer = startLogOutTimer();
+
     console.log('Transfer valid');
   }
 });
@@ -393,6 +397,9 @@ btnLoan.addEventListener('click', function (e) {
       currentAccount.movementsDate.push(new Date().toISOString());
       //update UI
       updateUI(currentAccount);
+      //reset timer
+      clearInterval(timer);
+      timer = startLogOutTimer();
     }, 3000);
   }
   inputLoanAmount.value = '';
