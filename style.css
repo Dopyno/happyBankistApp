@@ -84,11 +84,15 @@ h1 {
 
 .login__btn {
   border: none;
-  background: none;
-  font-size: 2.2rem;
-  color: inherit;
+  color: white;
+  padding: 10px 20px;
+  margin: 5px;
+  font-size: 16px;
+  border-radius: 5px;
   cursor: pointer;
-  transition: all 0.3s;
+  font-weight: bold;
+  background-color: rgb(4, 167, 72);
+  width: 90px;
 }
 
 .login__btn:hover,
@@ -308,8 +312,31 @@ h2 {
 
 .timer {
   font-weight: 700;
-  color:#e52a5a
+  color: #e52a5a;
 }
 p {
   color: white;
+}
+
+.btn-primary {
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  margin: 5px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  background-color: blue;
+}
+.btn-logout {
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  margin: 5px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  background-color: tomato;
 }

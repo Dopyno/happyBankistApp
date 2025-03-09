@@ -157,6 +157,7 @@ const btnTransfer = document.querySelector('.form__btn--transfer');
 const btnLoan = document.querySelector('.form__btn--loan');
 const btnClose = document.querySelector('.form__btn--close');
 const btnSort = document.querySelector('.btn--sort');
+const btnLogout = document.querySelector('.btn-logout');
 
 const inputLoginUsername = document.querySelector('.login__input--user');
 const inputLoginPin = document.querySelector('.login__input--pin');
@@ -333,7 +334,7 @@ btnLogin.addEventListener('click', function (e) {
     inputLoginPin.blur();
 
     //timer
-    if(timer) clearInterval(timer);
+    if (timer) clearInterval(timer);
     timer = startLogOutTimer();
 
     //? update UI
@@ -428,4 +429,11 @@ btnSort.addEventListener('click', function (e) {
   e.preventDefault();
   displayMovements(currentAccount.movements, !sorted);
   sorted = !sorted;
+});
+
+btnLogout.addEventListener('click', function (e) {
+  e.preventDefault();
+  clearInterval(timer);
+  labelWelcome.textContent = `Log in to get started`;
+  containerApp.style.opacity = 0;
 });
