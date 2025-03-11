@@ -438,36 +438,54 @@ btnLogout.addEventListener('click', function (e) {
   containerApp.style.opacity = 0;
 });
 
-   function submitForm() {
-     const firstName = document.getElementById('firstName').value;
-     const lastName = document.getElementById('lastName').value;
-     const password = document.getElementById('password').value;
-     const deposit = document.getElementById('deposit').value;
-     const currency = document.getElementById('currency').value;
+const addUsers = function (firstName, lastName, pin, movements, currency) {
+  this.firstName = firstName;
+  this.lastName = lastName;
+  this.pin = pin;
+  this.movements = movements;
+  this .movementsDate = new Date()
+  this.currency = currency;
+  this.locale = navigator.language;
+  
+  return firstName, lastName, pin, movements, currency;
+  //owner: return this.firstName + ' ' + this.lastName;
+};
 
-     if (!firstName || !lastName || !password || !deposit || !currency) {
-       alert('Please fill in all fields.\nMinimum deposit is 1.');
-       return;
-     }
+function submitForm() {
+  const firstName = document.getElementById('firstName').value;
+  const lastName = document.getElementById('lastName').value;
+  const password = document.getElementById('password').value;
+  const deposit = document.getElementById('deposit').value;
+  const currency = document.getElementById('currency').value;
 
-     const userDetails = {
-       firstName,
-       lastName,
-       password,
-       deposit,
-       currency,
-     };
-
-     console.log('User Details:', userDetails);
-     alert('Form submitted successfully!');
-     
-   }
-   const form = document.querySelector('#bankingForm');
-
-form.addEventListener('submit', function(e) {
-  e.preventDefault();
-  const user = new FormData(form)
-  for (item of user){
-    console.log(item);
+  if (!firstName || !lastName || !password || !deposit || !currency) {
+    alert('Please fill in all fields.\nMinimum deposit is 1.');
+    return;
   }
-})
+
+  const userDetails = {
+    firstName,
+    lastName,
+    password,
+    deposit,
+    currency,
+  };
+
+  console.log('User Details:', userDetails);
+  alert('Form submitted successfully!');
+
+  const form = document.querySelector('#bankingForm');
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const newUser = new addUsers(firstName, lastName, password, deposit, currency)
+    accounts.push(newUser);
+    console.log(newUser);
+    document.querySelector('form').reset();
+    for (item of accounts){
+      console.log(item);
+    
+    }
+  });
+}
+
