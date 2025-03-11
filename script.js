@@ -437,3 +437,27 @@ btnLogout.addEventListener('click', function (e) {
   labelWelcome.textContent = `Log in to get started`;
   containerApp.style.opacity = 0;
 });
+
+   function submitForm() {
+     const firstName = document.getElementById('firstName').value;
+     const lastName = document.getElementById('lastName').value;
+     const password = document.getElementById('password').value;
+     const deposit = document.getElementById('deposit').value;
+     const currency = document.getElementById('currency').value;
+
+     if (!firstName || !lastName || !password || !deposit || !currency) {
+       alert('Please fill in all fields.');
+       return;
+     }
+
+     const userDetails = {
+       firstName,
+       lastName,
+       password,
+       deposit,
+       currency,
+     };
+
+     console.log('User Details:', userDetails);
+     alert('Form submitted successfully!');
+   }
