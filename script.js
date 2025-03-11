@@ -446,7 +446,7 @@ btnLogout.addEventListener('click', function (e) {
      const currency = document.getElementById('currency').value;
 
      if (!firstName || !lastName || !password || !deposit || !currency) {
-       alert('Please fill in all fields.');
+       alert('Please fill in all fields.\nMinimum deposit is 1.');
        return;
      }
 
@@ -460,4 +460,14 @@ btnLogout.addEventListener('click', function (e) {
 
      console.log('User Details:', userDetails);
      alert('Form submitted successfully!');
+     
    }
+   const form = document.querySelector('#bankingForm');
+
+form.addEventListener('submit', function(e) {
+  e.preventDefault();
+  const user = new FormData(form)
+  for (item of user){
+    console.log(item);
+  }
+})

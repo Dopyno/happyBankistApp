@@ -340,3 +340,6 @@ p {
   font-weight: bold;
   background-color: tomato;
 }
+ .modal-content {
+        border-radius: 10px;
+      }
